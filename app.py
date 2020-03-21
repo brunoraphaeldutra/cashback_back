@@ -1,9 +1,9 @@
 from flask import Blueprint
 from flask_restful import Api
 
+from bff.ResellerResource import ResellerResource
+
 api_bp = Blueprint('api', __name__)
 api = Api(api_bp)
 
-# Route
-# api.add_resource(AcessoResource, '/acesso')
-# api.add_resource(CompraResource, '/compras')
+api.add_resource(ResellerResource, '/reseller')

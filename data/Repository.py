@@ -1,10 +1,8 @@
-from sqlite3 import IntegrityError
-
-from data.Model import db
-from data.Model import ResellerSchema
-from data.Model import Reseller
 from data.Model import Purchase
 from data.Model import PurchaseSchema
+from data.Model import Reseller
+from data.Model import ResellerSchema
+from data.Model import db
 from util.CustomException import NotFoundException, DuplicateDataException
 
 
@@ -36,7 +34,6 @@ class ResellerRepository:
 
     def add(self, reseller: Reseller):
         try:
-            # reseller = Reseller(cpf=cpf, email=email, senha=password)
             db.session.add(reseller)
             db.session.commit()
             return reseller
@@ -53,7 +50,7 @@ class ResellerRepository:
             db.session.commit()
             return reseller
         else:
-            raise NotFoundException("Data not found")
+            raise NotFoundException
 
 class PurchaseRepository:
     purchase_schema = PurchaseSchema()
@@ -93,7 +90,7 @@ class PurchaseRepository:
             db.session.commit()
             return db_purchase
         else:
-            raise NotFoundException("Data not found")
+            raise NotFoundException
 
     """ Delete a purchase
     """
@@ -104,4 +101,4 @@ class PurchaseRepository:
             db.session.commit()
             return purchase
         else:
-            raise NotFoundException("Data not found")
+            raise NotFoundException

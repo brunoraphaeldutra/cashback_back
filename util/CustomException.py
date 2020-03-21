@@ -3,4 +3,6 @@ class DuplicateDataException(Exception):
 
 
 class NotFoundException(Exception):
-    pass
+
+    def __init__(self):
+        super(Exception, self).__init__("Data not found")
