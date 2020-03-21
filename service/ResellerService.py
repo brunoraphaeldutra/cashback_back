@@ -13,15 +13,6 @@ class ResellerService:
     create_schema = CreateResellerSchema()
     repository = ResellerRepository()
 
-    def find_by_cpf(self, cpf: str):
-        try:
-            data = self.repository.find_by_cpf(cpf=cpf)
-            return self.create_schema.dump(data)
-        except NotFoundException as not_found_error:
-            raise NotFoundException(not_found_error)
-        except Exception as err:
-            raise NotMappedException(err)
-
     def add(self, reseller):
         try:
             logging.info('Start create reseller')
@@ -35,12 +26,22 @@ class ResellerService:
         except Exception as err:
             raise NotMappedException(err)
 
+    def find_by_cpf(self, cpf: str):
+        try:
+            data = self.repository.find_by_cpf(cpf=cpf)
+            return self.create_schema.dump(data)
+        except NotFoundException as not_found_error:
+            raise NotFoundException
+        except Exception as err:
+            raise NotMappedException(err)
+
     def delete(self, id_reseller):
         try:
             logging.info('Start delete reseller')
-            return self.create_schema.dump(self.repository.delete(id_reseller))
+            return self.repository.delete(id_reseller)
+        except NotFoundException:
+            raise NotFoundException
+        except InvalidDataException as err:
+            raise InvalidDataException(err)
         except Exception as err:
-            if type(err) is InvalidDataException:
-                raise InvalidDataException(err)
-            else:
-                raise NotMappedException(err)
+            raise NotMappedException(err)

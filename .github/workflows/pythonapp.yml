@@ -41,7 +41,7 @@ jobs:
         python -m unittest test.RepositoryTest
     - name: Coverage
       run: |
-        coverage run  -m unittest test.RepositoryTest
+        coverage run -m unittest discover
         coverage xml
     - name: SonarCloud Scan
       env:

@@ -1,13 +1,11 @@
 from data.Model import Purchase
 from data.Model import PurchaseSchema
 from data.Model import Reseller
-from data.Model import ResellerSchema
 from data.Model import db
 from util.CustomException import NotFoundException, DuplicateDataException
 
 
 class ResellerRepository:
-    reseller_schema = ResellerSchema()
 
     """ Find a reseller by a CPF.
     """

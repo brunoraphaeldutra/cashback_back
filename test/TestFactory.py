@@ -4,14 +4,14 @@ from run import create_app
 from service.FactoryService import ResellerToObject
 
 
-class FactoryTest(unittest.TestCase):
+class ResellerToObjectTest(unittest.TestCase):
 
     def setUp(self):
         self.app = create_app("config")
         ctx = self.app.app_context()
         ctx.push()
 
-    def test_get_reseller(self):
+    def test_21_get_reseller(self):
         reseller = {"cpf": "CPF", "email": "email@email.com", "password": "senha"}
         id_reseller = {"cpf": "CPF", "email": "email@email.com", "password": "senha", "id": 1}
         data = ResellerToObject.get_reseller(reseller)
