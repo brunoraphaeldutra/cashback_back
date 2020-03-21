@@ -7,6 +7,7 @@ from util.CustomException import InvalidDataException, DuplicateDataException, N
 
 class ResellerServiceTest(unittest.TestCase):
     CONST_CPF = "CPF01"
+
     def setUp(self):
         self.app = create_app("config")
         ctx = self.app.app_context()
