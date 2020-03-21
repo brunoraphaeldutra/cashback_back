@@ -1,6 +1,7 @@
 from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
 from marshmallow import fields, validate
+from sqlalchemy.orm import validates
 
 ma = Marshmallow()
 db = SQLAlchemy()
@@ -18,6 +19,10 @@ class Reseller(db.Model):
         self.email = email
         self.password = password
 
+    @validates('email')
+    def validate_email(self, key, address):
+        assert '@' in address
+        return address
 
 class Purchase(db.Model):
 

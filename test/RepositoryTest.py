@@ -18,12 +18,14 @@ class RepositoryTest(unittest.TestCase):
         self.purchase_repository = PurchaseRepository()
 
     def test_01_reseller_add(self):
-        reseller = Reseller(cpf="CPF", email="email", password="password")
-        duplicate_reseller = Reseller(cpf="CPF", email="email", password="password")
+        reseller = Reseller(cpf="CPF", email="email@aa.com", password="password")
+        duplicate_reseller = Reseller(cpf="CPF", email="email@aa.com", password="password")
         data = self.reseller_repository.add(reseller=reseller)
         assert data.cpf == "CPF"
         with self.assertRaises(DuplicateDataException):
             self.reseller_repository.add(reseller=duplicate_reseller)
+        with self.assertRaises(AssertionError):
+            Reseller(cpf="CPF1", email="email", password="password")
 
     def test_02_reseller_find_by_cpf(self):
         data = self.reseller_repository.find_by_cpf(cpf="CPF")
