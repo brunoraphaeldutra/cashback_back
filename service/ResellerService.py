@@ -1,7 +1,5 @@
 import logging
 
-from jsonschema import ValidationError
-
 from data.Repository import ResellerRepository
 from util.CustomException import InvalidDataException
 from util.Validators import CreateResellerSchema
@@ -16,7 +14,7 @@ class ResellerService:
             logging.info('Start create reseller')
             data, errors = CreateResellerSchema().load(reseller)
             if errors:
-                raise Exception(errors)
+                raise InvalidDataException(errors)
             return create_schema.dump(repository.add(data))
-        except ValidationError as err:
+        except Exception as err:
             raise InvalidDataException(err)
