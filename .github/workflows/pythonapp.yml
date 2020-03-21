@@ -45,7 +45,7 @@ jobs:
         coverage xml
     - name: SonarCloud Scan
       env:
-        SONAR_TOKEN: 08046fc593cf7114b8447e29efcfa68187429bb1
-        GITHUB_TOKEN: 354d1301eb99b173c652b6d40761b8db828a5cd3
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       uses: SonarSource/sonarcloud-github-action@v1.1
 
