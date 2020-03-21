@@ -39,3 +39,8 @@ jobs:
     - name: Test with unittest
       run: |
         python -m unittest test.RepositoryTest
+    - name: Coveralls GitHub Action
+      uses: coverallsapp/github-action@v1.0.1
+      with:
+        # 
+        github-token: 532968b46693896f00147d7a350fbf020dea58b0
