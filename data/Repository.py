@@ -16,21 +16,27 @@ class ResellerRepository:
 
     def find_by_cpf(self, cpf: str):
         reseller = Reseller.query.filter_by(cpf=cpf).first()
-        return reseller
+        if reseller:
+            return reseller
+        else:
+            raise NotFoundException
 
     """ Find a reseller by a CPF and password.
     """
 
     def login(self, cpf: str, password: str):
-        reseller = Reseller.query.filter_by(cpf=cpf, senha=password).first()
-        return reseller
+        reseller = Reseller.query.filter_by(cpf=cpf, password=password).first()
+        if reseller:
+            return reseller
+        else:
+            raise NotFoundException
 
     """ Add a reseller
     """
 
-    def add(self, cpf: str, email: str, password: str):
+    def add(self, reseller: Reseller):
         try:
-            reseller = Reseller(cpf=cpf, email=email, senha=password)
+            # reseller = Reseller(cpf=cpf, email=email, senha=password)
             db.session.add(reseller)
             db.session.commit()
             return reseller
@@ -57,7 +63,10 @@ class PurchaseRepository:
 
     def find_by_cpf(self, cpf: str):
         purchase = Purchase.query.filter_by(cpf=cpf)
-        return purchase
+        if purchase.first() is not None:
+            return purchase
+        else:
+            raise NotFoundException
 
     """ Add a purchase
     """
@@ -78,9 +87,9 @@ class PurchaseRepository:
         if db_purchase:
             db_purchase.cpf = purchase.cpf
             db_purchase.status = purchase.status
-            db_purchase.data = purchase.data
-            db_purchase.valor = purchase.valor
-            db_purchase.codigo = purchase.codigo
+            db_purchase.date = purchase.date
+            db_purchase.value = purchase.value
+            db_purchase.code = purchase.code
             db.session.commit()
             return db_purchase
         else:
