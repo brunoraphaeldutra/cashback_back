@@ -37,9 +37,9 @@ class ResellerRepository:
             db.session.add(reseller)
             db.session.commit()
             return reseller
-        except Exception:
+        except Exception as err:
             db.session.rollback()
-            raise DuplicateDataException("Problem with insert")
+            raise DuplicateDataException(err.args)
 
     """ Delete a reseller
     """
@@ -51,6 +51,7 @@ class ResellerRepository:
             return reseller
         else:
             raise NotFoundException
+
 
 class PurchaseRepository:
     purchase_schema = PurchaseSchema()
@@ -73,8 +74,8 @@ class PurchaseRepository:
             db.session.add(purchase)
             db.session.commit()
             return purchase
-        except Exception:
-            raise DuplicateDataException("Problem with insert")
+        except Exception as err:
+            raise DuplicateDataException(err.args)
 
     """ Update a purchase
     """

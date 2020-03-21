@@ -1,15 +1,16 @@
-from marshmallow import Schema, fields
+from flask_marshmallow import Schema
+from marshmallow import fields
 
 
 class CreateResellerSchema(Schema):
-    id = fields.Int(required=False)
-    cpf = fields.Str(required=True)
+    id = fields.Integer(required=False)
+    cpf = fields.String(required=True)
     email = fields.Email(required=True)
-    password = fields.Str(required=True)
+    password = fields.String(required=True)
 
 
-class UpdateResellerSchema(Schema):
-    id = fields.Int(required=True)
-    cpf = fields.Str(required=True)
+class DeleteResellerSchema(Schema):
+    id = fields.Integer(required=True)
+    cpf = fields.String(required=True)
     email = fields.Email(required=True)
-    password = fields.Str(required=True)
+    password = fields.String(required=True)
