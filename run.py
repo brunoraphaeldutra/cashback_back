@@ -1,4 +1,8 @@
+import logging
+
 from flask import Flask
+
+from config import LOG_NAME
 
 
 def create_app(config_filename):
@@ -10,6 +14,8 @@ def create_app(config_filename):
 
     from data.Model import db
     db.init_app(app)
+
+    logging.basicConfig(filename=LOG_NAME, level=logging.INFO)
 
     return app
 

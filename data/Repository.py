@@ -41,7 +41,7 @@ class ResellerRepository:
             db.session.rollback()
             raise DuplicateDataException("Problem with insert")
 
-    """ Delete a resseler
+    """ Delete a reseller
     """
 
     def delete(self, id_reseller: int):

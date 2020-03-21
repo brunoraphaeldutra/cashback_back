@@ -13,7 +13,7 @@ python -m unittest test.TestCashback
 python -m unittest test.RepositoryTest
 ```
 
-#Coverage
+# Coverage
 ```
 coverage run  -m unittest test.RepositoryTest
 coverage report
