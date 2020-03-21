@@ -10,3 +10,7 @@ class NotFoundException(Exception):
 
 class InvalidDataException(Exception):
     pass
+
+
+class NotMappedException(Exception):
+    pass
