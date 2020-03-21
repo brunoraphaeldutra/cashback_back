@@ -39,6 +39,10 @@ jobs:
     - name: Test with unittest
       run: |
         python -m unittest test.RepositoryTest
+    - name: Coverage
+      run: |
+        coverage run  -m unittest test.RepositoryTest
+        coverage report
     - name: Coveralls GitHub Action
       uses: coverallsapp/github-action@v1.0.1
       with:
