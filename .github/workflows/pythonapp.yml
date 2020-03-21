@@ -42,10 +42,7 @@ jobs:
     - name: Coverage
       run: |
         coverage run  -m unittest test.RepositoryTest
-        coverage report
-    - name: Coveralls GitHub Action
-      uses: coverallsapp/github-action@v1.0.1
-      with:
-        # 
-        github-token: 532968b46693896f00147d7a350fbf020dea58b0
-        path-to-lcov: .\.coverage
+        coverage xml
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@v1.1
+
