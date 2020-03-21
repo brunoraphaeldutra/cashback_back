@@ -44,3 +44,4 @@ jobs:
       with:
         # 
         github-token: 532968b46693896f00147d7a350fbf020dea58b0
+        path-to-lcov: .\.coverage
