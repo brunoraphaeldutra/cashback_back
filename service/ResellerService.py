@@ -1,6 +1,6 @@
 import logging
 
-from flask_restplus import ValidationError
+from marshmallow import ValidationError
 
 from data.Repository import ResellerRepository
 from service.FactoryService import ResellerToObject
