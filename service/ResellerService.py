@@ -7,6 +7,7 @@ from util.Validators import CreateResellerSchema
 create_schema = CreateResellerSchema()
 repository = ResellerRepository()
 
+
 class ResellerService:
 
     def add(self, reseller):

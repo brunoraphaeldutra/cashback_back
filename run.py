@@ -16,7 +16,6 @@ def create_app(config_filename):
     db.init_app(app)
 
     logging.basicConfig(filename=LOG_NAME, level=logging.INFO)
-
     return app
 
 
