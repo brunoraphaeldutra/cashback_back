@@ -44,5 +44,7 @@ jobs:
         coverage run  -m unittest test.RepositoryTest
         coverage xml
     - name: SonarCloud Scan
+      env:
+        SONAR_TOKEN: 08046fc593cf7114b8447e29efcfa68187429bb1
       uses: SonarSource/sonarcloud-github-action@v1.1
 
