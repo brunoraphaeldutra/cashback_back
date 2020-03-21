@@ -38,8 +38,7 @@ jobs:
         python migrate.py db upgrade
     - name: Coverage
       run: |
-        coverage run -m unittest discover
-        coverage xml
+        coverage run -m unittest discover && coverage xml
     - name: SonarCloud Scan
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
