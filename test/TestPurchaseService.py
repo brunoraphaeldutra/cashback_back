@@ -9,13 +9,6 @@ from util.CustomException import NotFoundException, ConsumeApiException, Invalid
 class TestPurchaseService(unittest.TestCase):
     CONST_CPF = "153.509.460-56"
 
-    # id = fields.Integer(required=False)
-    # code = fields.Integer(required=True)
-    # value = fields.Float(required=True)
-    # date = fields.DateTime()
-    # cpf = fields.String(required=True)
-    # status = fields.String(required=False)
-
     def setUp(self):
         self.app = create_app("config")
         ctx = self.app.app_context()
@@ -30,11 +23,18 @@ class TestPurchaseService(unittest.TestCase):
 
     def test_01_add(self):
         purchase = {"cpf": self.CONST_CPF, "code": "A11", "value": 100.50, "date": "2019-01-01T22:50:00"}
+        purchase_15 = {"cpf": self.CONST_CPF, "code": "A11", "value": 1000.50, "date": "2019-01-01T22:50:00"}
+        purchase_20 = {"cpf": self.CONST_CPF, "code": "A11", "value": 1500.50, "date": "2019-01-01T22:50:00"}
         invalid_purchase = {"cpf": self.CONST_CPF, "code": "A11", "value": 12.50}
         data = self.purchase_repository.add(purchase=purchase)
+        data_15 = self.purchase_repository.add(purchase=purchase_15)
+        data_20 = self.purchase_repository.add(purchase=purchase_20)
         with self.assertRaises(InvalidDataException):
             self.purchase_repository.add(purchase=invalid_purchase)
         assert data["id"] > 0
+        assert data["value_cb"] == 10
+        assert data_15["value_cb"] == 15
+        assert data_20["value_cb"] == 20
 
     def test_02_update(self):
         purchase = self.purchase_repository.find_by_cpf(cpf=self.CONST_CPF)

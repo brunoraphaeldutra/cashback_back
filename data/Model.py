@@ -30,19 +30,21 @@ class Purchase(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     code = db.Column(db.String(250), nullable=False)
     value = db.Column(db.Float, nullable=False)
+    value_cb = db.Column(db.Float, nullable=False)
     status = db.Column(db.String(20), nullable=True, default='')
     cpf = db.Column(db.String(20), nullable=False, default='')
     date = db.Column(db.TIMESTAMP, server_default=db.func.current_timestamp(), nullable=False)
     reseller_id = db.Column(db.Integer, db.ForeignKey('reseller.id', ondelete='CASCADE'), nullable=False)
     reseller = db.relationship('Reseller', backref=db.backref('purchase', lazy='dynamic'))
 
-    def __init__(self, code: str, value: float, date: str, cpf: str, status: str, reseller_id: int):
+    def __init__(self, code: str, value: float, date: str, cpf: str, status: str, reseller_id: int, value_cb: float):
         self.code = code
         self.value = value
         self.date = date
         self.cpf = cpf
         self.status = status
         self.reseller_id = reseller_id
+        self.value_cb = value_cb
 
 
 class ResellerSchema(ma.Schema):

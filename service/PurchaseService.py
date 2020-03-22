@@ -19,6 +19,15 @@ def _get_status(cpf):
         return 'Em validação'
 
 
+def _get_cash_back(value):
+    if value <= 999:
+        return 10
+    elif 1000 <= value <= 1500:
+        return 15
+    else:
+        return 20
+
+
 class PurchaseService:
     create_schema = CreatePurchaseSchema()
     update_schema = UpdatePurchaseSchema()
@@ -34,6 +43,7 @@ class PurchaseService:
             reseller = self.reseller_service.find_by_cpf(purchase["cpf"])
             purchase["reseller_id"] = reseller["id"]
             data = PurchaseToObject.get_purchase(purchase)
+            data.value_cb = _get_cash_back(data.value)
             return self.create_schema.dump(self.repository.add(data))
         except ValidationError as valid_error:
             raise InvalidDataException(valid_error)
@@ -49,6 +59,7 @@ class PurchaseService:
             reseller = self.reseller_service.find_by_cpf(purchase["cpf"])
             purchase["reseller_id"] = reseller["id"]
             data = PurchaseToObject.get_purchase(purchase)
+            data.value_cb = _get_cash_back(data.value)
             return self.update_schema.dump(self.repository.update(data))
         except ValidationError as valid_error:
             raise InvalidDataException(valid_error)
