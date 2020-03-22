@@ -32,7 +32,17 @@ class ResellerService:
             only_cpf = StringUtil.get_cpf(cpf)
             data = self.repository.find_by_cpf(cpf=only_cpf)
             return self.create_schema.dump(data)
-        except NotFoundException as not_found_error:
+        except NotFoundException:
+            raise NotFoundException
+        except Exception as err:
+            raise NotMappedException(err)
+
+    def login(self, cpf: str, password: str):
+        try:
+            only_cpf = StringUtil.get_cpf(cpf)
+            data = self.repository.login(cpf=only_cpf, password=password)
+            return self.create_schema.dump(data)
+        except NotFoundException:
             raise NotFoundException
         except Exception as err:
             raise NotMappedException(err)
