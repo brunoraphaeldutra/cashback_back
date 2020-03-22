@@ -17,7 +17,8 @@ python -m unittest test.RepositoryTest
 
 # Coverage
 ```
-coverage run  -m unittest test.RepositoryTest
+coverage run  -m unittest test.TestRepository
+coverage run -m unittest discover 
 coverage report
 ```
 
