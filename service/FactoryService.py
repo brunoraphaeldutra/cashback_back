@@ -24,7 +24,7 @@ class PurchaseToObject:
         only_cpf = StringUtil.get_cpf(json["cpf"])
         purchase = Purchase(code=json["code"],
                             value=json["value"], date=python_date,
-                            cpf=only_cpf, status=json["status"], reseller_id=json["reseller_id"], value_cb=0)
+                            cpf=only_cpf, status=json["status"], reseller_id=json["reseller_id"])
         if "id" in json:
             purchase.id = json["id"]
         return purchase

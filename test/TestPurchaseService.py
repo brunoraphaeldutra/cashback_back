@@ -23,8 +23,8 @@ class TestPurchaseService(unittest.TestCase):
 
     def test_01_add(self):
         purchase = {"cpf": self.CONST_CPF, "code": "A11", "value": 100.50, "date": "2019-01-01T22:50:00"}
-        purchase_15 = {"cpf": self.CONST_CPF, "code": "A11", "value": 1000.50, "date": "2019-01-01T22:50:00"}
-        purchase_20 = {"cpf": self.CONST_CPF, "code": "A11", "value": 1500.50, "date": "2019-01-01T22:50:00"}
+        purchase_15 = {"cpf": self.CONST_CPF, "code": "A11", "value": 1000.50, "date": "2019-01-01T22:51:00"}
+        purchase_20 = {"cpf": self.CONST_CPF, "code": "A11", "value": 1500.50, "date": "2019-01-01T22:52:00"}
         invalid_purchase = {"cpf": self.CONST_CPF, "code": "A11", "value": 12.50}
         data = self.purchase_repository.add(purchase=purchase)
         data_15 = self.purchase_repository.add(purchase=purchase_15)

@@ -18,7 +18,7 @@ def create_app(config_filename):
     db.init_app(app)
 
     app.config['SECRET_KEY'] = 'strong key'
-    jwt = JWT(app, authenticate, identity)
+    JWT(app, authenticate, identity)
 
     logging.basicConfig(filename=LOG_NAME, level=logging.INFO)
     return app

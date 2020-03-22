@@ -37,14 +37,14 @@ class Purchase(db.Model):
     reseller_id = db.Column(db.Integer, db.ForeignKey('reseller.id', ondelete='CASCADE'), nullable=False)
     reseller = db.relationship('Reseller', backref=db.backref('purchase', lazy='dynamic'))
 
-    def __init__(self, code: str, value: float, date: str, cpf: str, status: str, reseller_id: int, value_cb: float):
+    def __init__(self, code: str, value: float, date: str, cpf: str, status: str, reseller_id: int):
         self.code = code
         self.value = value
         self.date = date
         self.cpf = cpf
         self.status = status
         self.reseller_id = reseller_id
-        self.value_cb = value_cb
+        self.value_cb = 0
 
 
 class ResellerSchema(ma.Schema):
