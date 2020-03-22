@@ -1,4 +1,5 @@
 from flask import request
+from flask_jwt import jwt_required
 from flask_restful import Resource, reqparse
 
 from service.PurchaseService import PurchaseService
@@ -8,6 +9,7 @@ service = PurchaseService()
 
 
 class PurchaseResource(Resource):
+    method_decorators = [jwt_required()]
 
     def post(self):
         try:
@@ -47,6 +49,7 @@ class PurchaseResource(Resource):
 
 
 class CashBackResource(Resource):
+    method_decorators = [jwt_required()]
 
     def get(self):
         try:

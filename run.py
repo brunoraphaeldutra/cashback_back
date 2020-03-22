@@ -1,8 +1,10 @@
 import logging
 
 from flask import Flask
+from flask_jwt import JWT
 
 from config import LOG_NAME
+from service.JWTService import authenticate, identity
 
 
 def create_app(config_filename):
@@ -14,6 +16,9 @@ def create_app(config_filename):
 
     from data.Model import db
     db.init_app(app)
+
+    app.config['SECRET_KEY'] = 'strong key'
+    jwt = JWT(app, authenticate, identity)
 
     logging.basicConfig(filename=LOG_NAME, level=logging.INFO)
     return app

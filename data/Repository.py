@@ -6,7 +6,6 @@ from util.CustomException import NotFoundException, DuplicateDataException
 
 
 class ResellerRepository:
-
     """ Find a reseller by a CPF.
     """
 
@@ -46,6 +45,16 @@ class ResellerRepository:
         reseller = Reseller.query.filter_by(id=id_reseller).delete()
         if reseller:
             db.session.commit()
+            return reseller
+        else:
+            raise NotFoundException
+
+    """ Delete a reseller
+    """
+
+    def find_by_id(self, id_reseller: int):
+        reseller = Reseller.query.filter_by(id=id_reseller).first()
+        if reseller:
             return reseller
         else:
             raise NotFoundException
