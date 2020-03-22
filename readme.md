@@ -36,12 +36,12 @@ DEFAULT_PASSWORD = "senha"
 ```
 Para conseguir o token é necessesário realizar um post
 ```
-POST: http://127.0.0.1:5000/auth
+POST: http://127.0.0.1:5000/api/login
 { "username": "usuario", "password": "senha" }
 ```
 
 # Rotas autenticadas 
 Para todas as rotas é necessário envio do token
 ```
-header: {Authorization: JWT TOKEN}
+header: {Authorization: Bearer TOKEN}
 ```
