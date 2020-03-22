@@ -38,7 +38,7 @@ jobs:
         python migrate.py db upgrade
     - name: Coverage
       run: |
-        coverage run  -m unittest discover -s test
+        coverage run  -m unittest test.TestRepository test.TestFactory test.TestPurchaseService teste.TestResellerService
         coverage xml
     - name: SonarCloud Scan
       env:
