@@ -1,6 +1,7 @@
 import logging
 
 from flask import Flask
+from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 
 from config import LOG_NAME, CPF_ADM, DEFAULT_PASSWORD, CREATE_FIRST_RESELLER
@@ -20,6 +21,7 @@ def create_app(config_filename):
 
     app.config['SECRET_KEY'] = 'strong key'
     JWTManager(app)
+    CORS(app)
 
     logging.basicConfig(filename=LOG_NAME, level=logging.INFO)
     return app
