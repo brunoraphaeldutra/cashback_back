@@ -12,9 +12,9 @@ class ResellerToObjectTest(unittest.TestCase):
         ctx.push()
 
     def test_21_get_reseller(self):
-        reseller = {"cpf": "CPF", "email": "email@email.com", "password": "senha"}
-        id_reseller = {"cpf": "CPF", "email": "email@email.com", "password": "senha", "id": 1}
+        reseller = {"cpf": "001-002-003-004-45", "email": "email@email.com", "password": "senha"}
+        id_reseller = {"cpf": "001-002-003-004-45", "email": "email@email.com", "password": "senha", "id": 1}
         data = ResellerToObject.get_reseller(reseller)
         id_data = ResellerToObject.get_reseller(id_reseller)
-        assert data.cpf == "CPF"
+        assert data.cpf == "00100200300445"
         assert id_data.id == 1

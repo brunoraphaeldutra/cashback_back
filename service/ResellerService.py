@@ -6,6 +6,7 @@ from data.Repository import ResellerRepository
 from service.FactoryService import ResellerToObject
 from util.CustomException import InvalidDataException, DuplicateDataException, NotFoundException
 from util.CustomException import NotMappedException
+from util.StringUtil import StringUtil
 from util.Validators import CreateResellerSchema
 
 
@@ -28,7 +29,8 @@ class ResellerService:
 
     def find_by_cpf(self, cpf: str):
         try:
-            data = self.repository.find_by_cpf(cpf=cpf)
+            only_cpf = StringUtil.get_cpf(cpf)
+            data = self.repository.find_by_cpf(cpf=only_cpf)
             return self.create_schema.dump(data)
         except NotFoundException as not_found_error:
             raise NotFoundException

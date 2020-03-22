@@ -69,7 +69,8 @@ class PurchaseService:
     def find_by_cpf(self, cpf):
         try:
             logging.info('Start find purchase')
-            return UpdatePurchaseSchema(many=True).dump(self.repository.find_by_cpf(cpf))
+            only_cpf = StringUtil.get_cpf(cpf)
+            return UpdatePurchaseSchema(many=True).dump(self.repository.find_by_cpf(only_cpf))
         except NotFoundException:
             raise NotFoundException
         except Exception as err:

@@ -3,10 +3,11 @@ import unittest
 from run import create_app
 from service.ResellerService import ResellerService
 from util.CustomException import InvalidDataException, DuplicateDataException, NotFoundException
+from util.StringUtil import StringUtil
 
 
 class ResellerServiceTest(unittest.TestCase):
-    CONST_CPF = "CPF01"
+    CONST_CPF = "001-002-003-45"
 
     def setUp(self):
         self.app = create_app("config")
@@ -19,7 +20,7 @@ class ResellerServiceTest(unittest.TestCase):
         duplicate_reseller = {"cpf": self.CONST_CPF, "email": "email@email.com", "password": "senha"}
         invalid_reseller = {"cpf": self.CONST_CPF, "password": ""}
         new_reseller = self.reseller_service.add(reseller)
-        assert new_reseller["cpf"] == self.CONST_CPF
+        assert new_reseller["cpf"] == StringUtil.get_cpf(self.CONST_CPF)
         with self.assertRaises(InvalidDataException):
             self.reseller_service.add(invalid_reseller)
         with self.assertRaises(DuplicateDataException):
@@ -28,8 +29,8 @@ class ResellerServiceTest(unittest.TestCase):
     def test_12_find_by_cpf(self):
         data = self.reseller_service.find_by_cpf(cpf=self.CONST_CPF)
         with self.assertRaises(NotFoundException):
-            self.reseller_service.find_by_cpf(cpf=-1)
-        assert data["cpf"] == self.CONST_CPF
+            self.reseller_service.find_by_cpf(cpf="0")
+        assert data["cpf"] == StringUtil.get_cpf(self.CONST_CPF)
 
     def test_13_delete(self):
         data = self.reseller_service.find_by_cpf(cpf=self.CONST_CPF)
