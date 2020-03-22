@@ -18,3 +18,7 @@ class NotMappedException(Exception):
 
 class ConsumeApiException(Exception):
     pass
+
+
+class BusinessException(Exception):
+    pass

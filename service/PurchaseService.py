@@ -7,7 +7,8 @@ from config import CPF_ADM, URL_CASH_BACK, TOKEN_CASH_BACK
 from data.Repository import PurchaseRepository
 from service.FactoryService import PurchaseToObject
 from service.ResellerService import ResellerService
-from util.CustomException import InvalidDataException, NotMappedException, NotFoundException, ConsumeApiException
+from util.CustomException import InvalidDataException, NotMappedException, NotFoundException, ConsumeApiException, \
+    BusinessException
 from util.StringUtil import StringUtil
 from util.Validators import CreatePurchaseSchema, UpdatePurchaseSchema
 
@@ -54,6 +55,9 @@ class PurchaseService:
         try:
             logging.info('Start update purchase')
             self.update_schema.load(purchase)
+            old_purchase = self.repository.find_by_id(purchase["id"])
+            if old_purchase.status == "Aprovado":
+                raise BusinessException("Situation does not allow change")
             purchase["status"] = _get_status(purchase["cpf"])
             logging.info('Find a reseller by cpf purchase')
             reseller = self.reseller_service.find_by_cpf(purchase["cpf"])
@@ -65,6 +69,8 @@ class PurchaseService:
             raise InvalidDataException(valid_error)
         except NotFoundException:
             raise NotFoundException
+        except BusinessException as business_error:
+            raise BusinessException(business_error)
         except Exception as err:
             raise NotMappedException(err)
 

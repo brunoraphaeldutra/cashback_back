@@ -49,7 +49,7 @@ class ResellerRepository:
         else:
             raise NotFoundException
 
-    """ Delete a reseller
+    """ Find a reseller
     """
 
     def find_by_id(self, id_reseller: int):
@@ -107,6 +107,16 @@ class PurchaseRepository:
         purchase = Purchase.query.filter_by(id=id_purchase).delete()
         if purchase:
             db.session.commit()
+            return purchase
+        else:
+            raise NotFoundException
+
+    """ Find a purchase
+    """
+
+    def find_by_id(self, id_purchase: int):
+        purchase = Purchase.query.filter_by(id=id_purchase).first()
+        if purchase:
             return purchase
         else:
             raise NotFoundException

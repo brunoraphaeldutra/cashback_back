@@ -9,7 +9,7 @@ from util.CustomException import DuplicateDataException, NotFoundException
 
 
 class RepositoryTest(unittest.TestCase):
-    CONST_CPF = "CPF"
+    CONST_CPF = "00100100101"
 
     def setUp(self):
         self.app = create_app("config")
