@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
 from marshmallow import fields, validate
@@ -11,10 +13,12 @@ class Reseller(db.Model):
     __tablename__ = 'reseller'
     id = db.Column(db.Integer, primary_key=True)
     cpf = db.Column(db.String(250), nullable=False, unique=True)
+    full_name = db.Column(db.String(250), nullable=False)
     email = db.Column(db.String(250), nullable=False)
     password = db.Column(db.String(250), nullable=False)
 
-    def __init__(self, cpf: str, email: str, password: str):
+    def __init__(self, cpf: str, email: str, password: str, full_name: str):
+        self.full_name = full_name
         self.cpf = cpf
         self.email = email
         self.password = password
@@ -29,15 +33,15 @@ class Purchase(db.Model):
     __tablename__ = 'purchase'
     id = db.Column(db.Integer, primary_key=True)
     code = db.Column(db.String(250), nullable=False)
-    value = db.Column(db.Float, nullable=False)
-    value_cb = db.Column(db.Float, nullable=False)
+    value = db.Column(db.Numeric, nullable=False)
+    value_cb = db.Column(db.Integer, nullable=False)
     status = db.Column(db.String(20), nullable=True, default='')
     cpf = db.Column(db.String(20), nullable=False, default='')
     date = db.Column(db.TIMESTAMP, server_default=db.func.current_timestamp(), nullable=False)
     reseller_id = db.Column(db.Integer, db.ForeignKey('reseller.id', ondelete='CASCADE'), nullable=False)
     reseller = db.relationship('Reseller', backref=db.backref('purchase', lazy='dynamic'))
 
-    def __init__(self, code: str, value: float, date: str, cpf: str, status: str, reseller_id: int):
+    def __init__(self, code: str, value: Decimal, date: str, cpf: str, status: str, reseller_id: int):
         self.code = code
         self.value = value
         self.date = date
@@ -49,6 +53,7 @@ class Purchase(db.Model):
 
 class ResellerSchema(ma.Schema):
     id = fields.Integer(dump_only=False)
+    full_name = fields.String(required=True)
     cpf = fields.String(required=True, validate=validate.Length(11))
     email = fields.String(required=True, validate=validate.Length(50))
     password = fields.String(required=True, validate=validate.Length(5))
@@ -57,7 +62,7 @@ class ResellerSchema(ma.Schema):
 class PurchaseSchema(ma.Schema):
     id = fields.Integer(dump_only=False)
     code = fields.Integer(required=True)
-    value = fields.Float(required=True)
+    value = fields.Number(required=True)
     date = fields.DateTime()
     cpf = fields.String(required=True, validate=validate.Length(11))
     status = fields.String(required=True)

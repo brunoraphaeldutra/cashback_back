@@ -1,10 +1,9 @@
 import logging
 
 from flask import Flask
-from flask_jwt import JWT
+from flask_jwt_extended import JWTManager
 
 from config import LOG_NAME, CPF_ADM, DEFAULT_PASSWORD, CREATE_FIRST_RESELLER
-from service.JWTService import authenticate, identity
 from service.ResellerService import ResellerService
 from util.StringUtil import StringUtil
 
@@ -20,7 +19,7 @@ def create_app(config_filename):
     db.init_app(app)
 
     app.config['SECRET_KEY'] = 'strong key'
-    JWT(app, authenticate, identity)
+    JWTManager(app)
 
     logging.basicConfig(filename=LOG_NAME, level=logging.INFO)
     return app
@@ -36,7 +35,8 @@ def initial_reseller():
         only_cpf = StringUtil.get_cpf(CPF_ADM)
         try:
             service.add(
-                {"cpf": only_cpf, "email": "{0}@email.com", "password": "{1}".format(only_cpf, DEFAULT_PASSWORD)})
+                {"full_name": "Administrator", "cpf": only_cpf, "email": "{0}@email.com", "password": "{1}"
+                    .format(only_cpf, DEFAULT_PASSWORD)})
         except Exception:
             pass
 

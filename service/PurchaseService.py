@@ -10,7 +10,7 @@ from service.ResellerService import ResellerService
 from util.CustomException import InvalidDataException, NotMappedException, NotFoundException, ConsumeApiException, \
     BusinessException
 from util.StringUtil import StringUtil
-from util.Validators import CreatePurchaseSchema, UpdatePurchaseSchema
+from util.Validators import CreatePurchaseSchema, UpdatePurchaseSchema, ViewPurchaseSchema
 
 
 def _get_status(cpf):
@@ -87,7 +87,7 @@ class PurchaseService:
         try:
             logging.info('Start find purchase')
             only_cpf = StringUtil.get_cpf(cpf)
-            return UpdatePurchaseSchema(many=True).dump(self.repository.find_by_cpf(only_cpf))
+            return ViewPurchaseSchema(many=True).dump(self.repository.find_by_cpf(only_cpf))
         except NotFoundException:
             raise NotFoundException
         except Exception as err:

@@ -25,7 +25,7 @@ class TestPurchaseService(unittest.TestCase):
             return self.reseller_service.find_by_cpf(cpf=cpf)
         except NotFoundException:
             return self.reseller_service.add(
-                {"cpf": cpf, "email": "email@email.com", "password": "senha"})
+                {"cpf": cpf, "email": "email@email.com", "password": "senha", "full_name": "TEST"})
 
 
     def tearDown(self):

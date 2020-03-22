@@ -10,7 +10,7 @@ class ResellerToObject:
     def get_reseller(json):
         only_cpf = StringUtil.get_cpf(json["cpf"])
         reseller = Reseller(cpf=only_cpf,
-                            email=json["email"], password=json["password"])
+                            email=json["email"], password=json["password"], full_name=json["full_name"])
         if "id" in json:
             reseller.id = json["id"]
         return reseller

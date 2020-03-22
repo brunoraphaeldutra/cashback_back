@@ -95,6 +95,7 @@ class PurchaseRepository:
             db_purchase.date = purchase.date
             db_purchase.value = purchase.value
             db_purchase.code = purchase.code
+            db_purchase.value_cb = purchase.value_cb
             db.session.commit()
             return db_purchase
         else:

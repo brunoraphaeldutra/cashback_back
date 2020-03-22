@@ -16,8 +16,8 @@ class ResellerServiceTest(unittest.TestCase):
         self.reseller_service = ResellerService()
 
     def test_11_add(self):
-        reseller = {"cpf": self.CONST_CPF, "email": "email@email.com", "password": "senha"}
-        duplicate_reseller = {"cpf": self.CONST_CPF, "email": "email@email.com", "password": "senha"}
+        reseller = {"cpf": self.CONST_CPF, "email": "email@email.com", "password": "senha", "full_name": "Administrator"}
+        duplicate_reseller = {"cpf": self.CONST_CPF, "email": "email@email.com", "password": "senha", "full_name": "Administrator"}
         invalid_reseller = {"cpf": self.CONST_CPF, "password": ""}
         new_reseller = self.reseller_service.add(reseller)
         assert new_reseller["cpf"] == StringUtil.get_cpf(self.CONST_CPF)
