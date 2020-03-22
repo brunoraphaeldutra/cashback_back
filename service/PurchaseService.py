@@ -53,6 +53,8 @@ class PurchaseService:
 
     def update(self, purchase):
         try:
+            if "cash_back" in purchase:
+                del purchase["cash_back"]
             logging.info('Start update purchase')
             self.update_schema.load(purchase)
             old_purchase = self.repository.find_by_id(purchase["id"])
