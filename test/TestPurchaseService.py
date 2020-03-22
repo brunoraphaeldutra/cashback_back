@@ -40,7 +40,7 @@ class TestPurchaseService(unittest.TestCase):
         purchase = self.purchase_repository.find_by_cpf(cpf=self.CONST_CPF)
         purchase[0]["value"] = 33.60
         data = self.purchase_repository.update(purchase=purchase[0])
-        not_found_purchase = {"cpf": self.CONST_CPF, "code": "A11", "value": 20.50, "date": "2019-01-01T22:50:00",
+        not_found_purchase = {"cpf": self.CONST_CPF, "code": "A11", "value": 20.50, "date": "2019-01-01T22:54:00",
                               "id": -2}
         with self.assertRaises(NotFoundException):
             self.purchase_repository.update(purchase=not_found_purchase)

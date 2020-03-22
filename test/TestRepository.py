@@ -45,7 +45,7 @@ class RepositoryTest(unittest.TestCase):
         print(reseller)
         purchase = Purchase(cpf=self.CONST_CPF, date=datetime.now()
                             , reseller_id=reseller.id
-                            , code="A10", value=25.30, status="A", value_cb=0)
+                            , code="A10", value=25.30, status="A")
         data = self.purchase_repository.add(purchase)
         assert data.code == "A10"
         assert data.reseller.cpf == self.CONST_CPF
