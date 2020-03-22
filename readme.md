@@ -20,3 +20,14 @@ python -m unittest test.RepositoryTest
 coverage run  -m unittest test.RepositoryTest
 coverage report
 ```
+
+# Login
+```
+POST: http://127.0.0.1:5000/auth
+{ "username": "usuario", "password": "senha" }
+```
+
+# Rotas autenticadas 
+```
+header: {Authorization: JWT }
+```
