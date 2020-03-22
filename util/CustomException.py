@@ -14,3 +14,7 @@ class InvalidDataException(Exception):
 
 class NotMappedException(Exception):
     pass
+
+
+class ConsumeApiException(Exception):
+    pass

@@ -8,3 +8,4 @@ flask_marshmallow==0.11.0
 marshmallow-sqlalchemy==0.22.3
 flask-expects-json==1.4.0
 coverage==5.0.4
+requests==2.23.0

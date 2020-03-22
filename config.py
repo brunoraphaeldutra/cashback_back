@@ -6,3 +6,6 @@ SQLALCHEMY_TRACK_MODIFICATIONS = True
 SQLALCHEMY_DATABASE_URI = "sqlite:///app.db"
 
 LOG_NAME = "cashback_log.log"
+CPF_ADM = "15350946056"
+URL_CASH_BACK = "https://mdaqk8ek5j.execute-api.us-east-1.amazonaws.com/v1/cashback?cpf={}"
+TOKEN_CASH_BACK = "ZXPURQOARHiMc6Y0flhRC1LVlZQVFRnm"

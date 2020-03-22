@@ -24,8 +24,8 @@ class Reseller(db.Model):
         assert '@' in address
         return address
 
-class Purchase(db.Model):
 
+class Purchase(db.Model):
     __tablename__ = 'purchase'
     id = db.Column(db.Integer, primary_key=True)
     code = db.Column(db.String(250), nullable=False)
