@@ -10,3 +10,5 @@ api = Api(api_bp)
 api.add_resource(ResellerResource, '/reseller')
 api.add_resource(PurchaseResource, '/purchase')
 api.add_resource(CashBackResource, '/cashback')
+
+

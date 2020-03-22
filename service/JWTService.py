@@ -7,9 +7,12 @@ reseller_repository = ResellerRepository()
 
 
 def authenticate(username, password):
-    user = reseller_repository.login(cpf=username, password=password)
-    if user and safe_str_cmp(user.password.encode('utf-8'), password.encode('utf-8')):
-        return user
+    try:
+        user = reseller_repository.login(cpf=username, password=password)
+        if user and safe_str_cmp(user.password.encode('utf-8'), password.encode('utf-8')):
+            return user
+    except:
+        return None
 
 
 def identity(payload):

@@ -16,10 +16,17 @@ class TestPurchaseService(unittest.TestCase):
         ctx.push()
         self.purchase_repository = PurchaseService()
         self.reseller_service = ResellerService()
-        self.id_reseller = self.reseller_service.add(
-            {"cpf": self.CONST_CPF, "email": "email@email.com", "password": "senha"})
-        self.id_con_reseller = self.reseller_service.add(
-            {"cpf": self.CONST_CPF_CON, "email": "email@emaidl.com", "password": "senhad"})
+        self.id_reseller = self._build_resseller(cpf=self.CONST_CPF)
+        self.id_con_reseller = self._build_resseller(cpf=self.CONST_CPF_CON)
+
+
+    def _build_resseller(self, cpf):
+        try:
+            return self.reseller_service.find_by_cpf(cpf=cpf)
+        except NotFoundException:
+            return self.reseller_service.add(
+                {"cpf": cpf, "email": "email@email.com", "password": "senha"})
+
 
     def tearDown(self):
         self.reseller_service.delete(self.id_reseller["id"])
