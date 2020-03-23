@@ -14,7 +14,7 @@ class ResellerRepository:
         if reseller:
             return reseller
         else:
-            raise NotFoundException
+            raise NotFoundException('Not found')
 
     """ Find a reseller by a CPF and password.
     """
@@ -24,7 +24,7 @@ class ResellerRepository:
         if reseller:
             return reseller
         else:
-            raise NotFoundException
+            raise NotFoundException('Not found')
 
     """ Add a reseller
     """
@@ -47,7 +47,7 @@ class ResellerRepository:
             db.session.commit()
             return reseller
         else:
-            raise NotFoundException
+            raise NotFoundException('Not found')
 
     """ Find a reseller
     """
@@ -57,7 +57,7 @@ class ResellerRepository:
         if reseller:
             return reseller
         else:
-            raise NotFoundException
+            raise NotFoundException('Not found')
 
 
 class PurchaseRepository:
@@ -71,7 +71,7 @@ class PurchaseRepository:
         if purchase.first() is not None:
             return purchase
         else:
-            raise NotFoundException
+            raise NotFoundException('Not found')
 
     """ Add a purchase
     """
@@ -99,7 +99,7 @@ class PurchaseRepository:
             db.session.commit()
             return db_purchase
         else:
-            raise NotFoundException
+            raise NotFoundException('Not found')
 
     """ Delete a purchase
     """
@@ -110,7 +110,7 @@ class PurchaseRepository:
             db.session.commit()
             return purchase
         else:
-            raise NotFoundException
+            raise NotFoundException('Not found')
 
     """ Find a purchase
     """
@@ -120,4 +120,4 @@ class PurchaseRepository:
         if purchase:
             return purchase
         else:
-            raise NotFoundException
+            raise NotFoundException('Not found')

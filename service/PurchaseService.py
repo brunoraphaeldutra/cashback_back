@@ -70,7 +70,7 @@ class PurchaseService:
         except ValidationError as valid_error:
             raise InvalidDataException(valid_error)
         except NotFoundException:
-            raise NotFoundException
+            raise NotFoundException('Not found')
         except BusinessException as business_error:
             raise BusinessException(business_error)
         except Exception as err:
@@ -79,11 +79,14 @@ class PurchaseService:
     def delete(self, id_purchase):
         try:
             logging.info('Start delete purchase')
+            old_purchase = self.repository.find_by_id(id_purchase)
+            if old_purchase.status == "Aprovado":
+                raise BusinessException("Situation does not allow change")
             return self.repository.delete(id_purchase)
         except NotFoundException:
-            raise NotFoundException
-        except Exception as err:
-            raise NotMappedException(err)
+            raise NotFoundException('Not found')
+        except BusinessException as err:
+            raise BusinessException(err)
 
     def find_by_cpf(self, cpf):
         try:
@@ -91,7 +94,7 @@ class PurchaseService:
             only_cpf = StringUtil.get_cpf(cpf)
             return ViewPurchaseSchema(many=True).dump(self.repository.find_by_cpf(only_cpf))
         except NotFoundException:
-            raise NotFoundException
+            raise NotFoundException('Not found')
         except Exception as err:
             raise NotMappedException(err)
 
@@ -99,12 +102,12 @@ class PurchaseService:
         try:
             only_cpf = StringUtil.get_cpf(cpf)
             if only_cpf == '':
-                raise ConsumeApiException
+                raise ConsumeApiException('Problem with cashback api')
             url = URL_CASH_BACK.format(only_cpf)
             header = {'token': TOKEN_CASH_BACK}
             response = requests.get(url, headers=header)
             return response.json()["body"]["credit"]
-        except ConsumeApiException:
-            raise ConsumeApiException
+        except ConsumeApiException as err:
+            raise ConsumeApiException(err)
         except Exception as err:
             raise NotMappedException(err)

@@ -81,8 +81,11 @@ class TestPurchaseService(unittest.TestCase):
         assert data > 0
 
     def test_05_delete(self):
-        purchase = self.purchase_repository.find_by_cpf(cpf=self.CONST_CPF)
+        purchase = self.purchase_repository.find_by_cpf(cpf=self.CONST_CPF_CON)
+        business_purchase = self.purchase_repository.find_by_cpf(cpf=self.CONST_CPF)
         data = self.purchase_repository.delete(id_purchase=purchase[0]["id"])
         with self.assertRaises(NotFoundException):
             self.purchase_repository.delete(id_purchase="CFP10")
+        with self.assertRaises(BusinessException):
+            self.purchase_repository.delete(id_purchase=business_purchase[0]["id"])
         assert data > 0

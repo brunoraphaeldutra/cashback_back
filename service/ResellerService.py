@@ -33,9 +33,9 @@ class ResellerService:
             data = self.repository.find_by_cpf(cpf=only_cpf)
             return self.create_schema.dump(data)
         except NotFoundException:
-            raise NotFoundException
+            raise NotFoundException(message='Not found')
         except Exception as err:
-            raise NotMappedException(err)
+            raise NotMappedException(message=err)
 
     def login(self, cpf: str, password: str):
         try:
@@ -43,7 +43,7 @@ class ResellerService:
             data = self.repository.login(cpf=only_cpf, password=password)
             return self.create_schema.dump(data)
         except NotFoundException:
-            raise NotFoundException
+            raise NotFoundException('Not found')
         except Exception as err:
             raise NotMappedException(err)
 
@@ -52,7 +52,7 @@ class ResellerService:
             logging.info('Start delete reseller')
             return self.repository.delete(id_reseller)
         except NotFoundException:
-            raise NotFoundException
+            raise NotFoundException('Not found')
         except InvalidDataException as err:
             raise InvalidDataException(err)
         except Exception as err:

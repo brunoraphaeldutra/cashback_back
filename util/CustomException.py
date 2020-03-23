@@ -2,7 +2,13 @@ from werkzeug.exceptions import HTTPException
 
 CONST_REP = '<{}: {}>\n'
 
+
 class DuplicateDataException(Exception):
+
+    def __init__(self, message: str):
+        super(Exception, self).__init__(message)
+        self.message = message
+
     def __str__(self):
         return CONST_REP.format(self.__class__.__name__, self.message)
 
@@ -12,8 +18,9 @@ class DuplicateDataException(Exception):
 
 class NotFoundException(Exception):
 
-    def __init__(self):
-        super(Exception, self).__init__("Data not found")
+    def __init__(self, message: str):
+        super(Exception, self).__init__(message)
+        self.message = message
 
     def __str__(self):
         return CONST_REP.format(self.__class__.__name__, self.message)
@@ -36,6 +43,11 @@ class InvalidDataException(Exception):
 
 
 class NotMappedException(Exception):
+
+    def __init__(self, message: str):
+        super(Exception, self).__init__(message)
+        self.message = message
+
     def __str__(self):
         return CONST_REP.format(self.__class__.__name__, self.message)
 
@@ -44,6 +56,11 @@ class NotMappedException(Exception):
 
 
 class ConsumeApiException(Exception):
+
+    def __init__(self, message: str):
+        super(Exception, self).__init__(message)
+        self.message = message
+
     def __str__(self):
         return CONST_REP.format(self.__class__.__name__, self.message)
 
@@ -52,6 +69,11 @@ class ConsumeApiException(Exception):
 
 
 class BusinessException(Exception):
+
+    def __init__(self, message: str):
+        super(Exception, self).__init__(message)
+        self.message = message
+
     def __str__(self):
         return CONST_REP.format(self.__class__.__name__, self.message)
 
@@ -61,9 +83,12 @@ class BusinessException(Exception):
 
 class APIException(HTTPException):
 
+    def __init__(self, message: str):
+        super(Exception, self).__init__(message)
+        self.message = message
+
     def __str__(self):
         return CONST_REP.format(self.__class__.__name__, self.message)
 
     def __repr__(self):
         return CONST_REP.format(self.__class__.__name__, self.message)
-
