@@ -1,9 +1,9 @@
 from flask import request
 from flask_jwt_extended import jwt_required
-from flask_restful import Resource, reqparse
+from flask_restful import Resource, reqparse, abort
 
 from service.PurchaseService import PurchaseService
-from util.ResponseUtil import get_response
+from util.ResponseUtil import get_response, get_error_response
 
 service = PurchaseService()
 
@@ -17,7 +17,8 @@ class PurchaseResource(Resource):
             data = service.add(json_data)
             return get_response(data, 200)
         except Exception as err:
-            raise err
+            response = get_error_response(err, 400)
+            abort(response)
 
     def put(self):
         try:
@@ -25,7 +26,8 @@ class PurchaseResource(Resource):
             data = service.update(json_data)
             return get_response(data, 200)
         except Exception as err:
-            return get_response(err.args, 500)
+            response = get_error_response(err, 400)
+            abort(response)
 
     def delete(self):
         try:
@@ -35,7 +37,8 @@ class PurchaseResource(Resource):
             data = service.delete(id_purchase=args["id_purchase"])
             return get_response(data, 200)
         except Exception as err:
-            return get_response(err.args, 500)
+            response = get_error_response(err, 400)
+            abort(response)
 
     def get(self):
         try:
@@ -45,7 +48,8 @@ class PurchaseResource(Resource):
             data = service.find_by_cpf(cpf=args["cpf"])
             return get_response(data, 200)
         except Exception as err:
-            return get_response(err.args, 500)
+            response = get_error_response(err, 400)
+            abort(response)
 
 
 class CashBackResource(Resource):
@@ -59,4 +63,5 @@ class CashBackResource(Resource):
             data = service.cash_back(cpf=args["cpf"])
             return get_response(data, 200)
         except Exception as err:
-            return get_response(err.args, 500)
+            response = get_error_response(err, 400)
+            abort(response)

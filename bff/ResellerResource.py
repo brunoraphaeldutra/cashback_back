@@ -1,9 +1,9 @@
 from flask import request
 from flask_jwt_extended import jwt_required
-from flask_restful import Resource
+from flask_restful import Resource, abort
 
 from service.ResellerService import ResellerService
-from util.ResponseUtil import get_response
+from util.ResponseUtil import get_response, get_error_response
 
 service = ResellerService()
 
@@ -17,5 +17,6 @@ class ResellerResource(Resource):
             data = service.add(json_data)
             return get_response(data, 200)
         except Exception as err:
-            return get_response(err.args, 500)
+            response = get_error_response(err, 400)
+            abort(response)
 
