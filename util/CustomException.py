@@ -1,12 +1,13 @@
 from werkzeug.exceptions import HTTPException
 
+CONST_REP = '<{}: {}>\n'
 
 class DuplicateDataException(Exception):
     def __str__(self):
-        return '<{}: {}>\n'.format(self.__class__.__name__, self.message)
+        return CONST_REP.format(self.__class__.__name__, self.message)
 
     def __repr__(self):
-        return '<{}: {}>\n'.format(self.__class__.__name__, self.message)
+        return CONST_REP.format(self.__class__.__name__, self.message)
 
 
 class NotFoundException(Exception):
@@ -15,10 +16,10 @@ class NotFoundException(Exception):
         super(Exception, self).__init__("Data not found")
 
     def __str__(self):
-        return '<{}: {}>\n'.format(self.__class__.__name__, self.message)
+        return CONST_REP.format(self.__class__.__name__, self.message)
 
     def __repr__(self):
-        return '<{}: {}>\n'.format(self.__class__.__name__, self.message)
+        return CONST_REP.format(self.__class__.__name__, self.message)
 
 
 class InvalidDataException(Exception):
@@ -28,48 +29,41 @@ class InvalidDataException(Exception):
         self.message = message
 
     def __str__(self):
-        return '<{}: {}>\n'.format(self.__class__.__name__, self.message)
+        return CONST_REP.format(self.__class__.__name__, self.message)
 
     def __repr__(self):
-        return '<{}: {}>\n'.format(self.__class__.__name__, self.message)
+        return CONST_REP.format(self.__class__.__name__, self.message)
 
 
 class NotMappedException(Exception):
     def __str__(self):
-        return '<{}: {}>\n'.format(self.__class__.__name__, self.message)
+        return CONST_REP.format(self.__class__.__name__, self.message)
 
     def __repr__(self):
-        return '<{}: {}>\n'.format(self.__class__.__name__, self.message)
+        return CONST_REP.format(self.__class__.__name__, self.message)
 
 
 class ConsumeApiException(Exception):
     def __str__(self):
-        return '<{}: {}>\n'.format(self.__class__.__name__, self.message)
+        return CONST_REP.format(self.__class__.__name__, self.message)
 
     def __repr__(self):
-        return '<{}: {}>\n'.format(self.__class__.__name__, self.message)
+        return CONST_REP.format(self.__class__.__name__, self.message)
 
 
 class BusinessException(Exception):
     def __str__(self):
-        return '<{}: {}>\n'.format(self.__class__.__name__, self.message)
+        return CONST_REP.format(self.__class__.__name__, self.message)
 
     def __repr__(self):
-        return '<{}: {}>\n'.format(self.__class__.__name__, self.message)
+        return CONST_REP.format(self.__class__.__name__, self.message)
 
 
 class APIException(HTTPException):
 
     def __str__(self):
-        return '<{}: {}>\n'.format(self.__class__.__name__, self.message)
+        return CONST_REP.format(self.__class__.__name__, self.message)
 
     def __repr__(self):
-        return '<{}: {}>\n'.format(self.__class__.__name__, self.message)
+        return CONST_REP.format(self.__class__.__name__, self.message)
 
-
-custom_errors = {
-    'APIException': {
-        'message': "A user with that username already exists.",
-        'status': 409,
-    }
-}
