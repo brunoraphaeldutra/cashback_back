@@ -17,7 +17,7 @@ class PurchaseResource(Resource):
             data = service.add(json_data)
             return get_response(data, 200)
         except Exception as err:
-            return get_response(err.args, 500)
+            raise err
 
     def put(self):
         try:

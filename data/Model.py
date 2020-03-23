@@ -23,6 +23,12 @@ class Reseller(db.Model):
         self.email = email
         self.password = password
 
+    def __str__(self):
+        return self.full_name
+
+    def __repr__(self):
+        return "<{}({!r})>".format(self.__class__.__name__, self.__dict__)
+
     @validates('email')
     def validate_email(self, key, address):
         assert '@' in address
@@ -49,6 +55,12 @@ class Purchase(db.Model):
         self.status = status
         self.reseller_id = reseller_id
         self.value_cb = 0
+
+    def __str__(self):
+        return self.cpf
+
+    def __repr__(self):
+        return "<{}({!r})>".format(self.__class__.__name__, self.__dict__)
 
 
 class ResellerSchema(ma.Schema):

@@ -1,5 +1,9 @@
 class DuplicateDataException(Exception):
-    pass
+    def __str__(self):
+        return '<{}: {}>\n'.format(self.__class__.__name__, self.message)
+
+    def __repr__(self):
+        return '<{}: {}>\n'.format(self.__class__.__name__, self.message)
 
 
 class NotFoundException(Exception):
@@ -7,18 +11,40 @@ class NotFoundException(Exception):
     def __init__(self):
         super(Exception, self).__init__("Data not found")
 
+    def __str__(self):
+        return '<{}: {}>\n'.format(self.__class__.__name__, self.message)
+
+    def __repr__(self):
+        return '<{}: {}>\n'.format(self.__class__.__name__, self.message)
+
 
 class InvalidDataException(Exception):
-    pass
+    def __str__(self):
+        return '<{}: {}>\n'.format(self.__class__.__name__, self.message)
+
+    def __repr__(self):
+        return '<{}: {}>\n'.format(self.__class__.__name__, self.message)
 
 
 class NotMappedException(Exception):
-    pass
+    def __str__(self):
+        return '<{}: {}>\n'.format(self.__class__.__name__, self.message)
+
+    def __repr__(self):
+        return '<{}: {}>\n'.format(self.__class__.__name__, self.message)
 
 
 class ConsumeApiException(Exception):
-    pass
+    def __str__(self):
+        return '<{}: {}>\n'.format(self.__class__.__name__, self.message)
+
+    def __repr__(self):
+        return '<{}: {}>\n'.format(self.__class__.__name__, self.message)
 
 
 class BusinessException(Exception):
-    pass
+    def __str__(self):
+        return '<{}: {}>\n'.format(self.__class__.__name__, self.message)
+
+    def __repr__(self):
+        return '<{}: {}>\n'.format(self.__class__.__name__, self.message)

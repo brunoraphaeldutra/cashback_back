@@ -22,7 +22,6 @@ def create_app(config_filename):
     app.config['SECRET_KEY'] = 'strong key'
     JWTManager(app)
     CORS(app)
-
     logging.basicConfig(filename=LOG_NAME, level=logging.INFO)
     return app
 
