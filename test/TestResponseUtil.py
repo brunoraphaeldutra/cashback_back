@@ -14,10 +14,8 @@ class ResponseTest(unittest.TestCase):
 
     def test_get_response(self):
         data = get_response("body", 200)
-        assert data.data != ""
         assert data.status_code == 200
 
     def test_get_error_response(self):
         data = get_error_response(NotFoundException, 400)
-        assert data.data != ""
         assert data.status_code == 400
