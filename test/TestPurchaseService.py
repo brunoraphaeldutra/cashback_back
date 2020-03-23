@@ -3,7 +3,8 @@ import unittest
 from run import create_app
 from service.PurchaseService import PurchaseService
 from service.ResellerService import ResellerService
-from util.CustomException import NotFoundException, ConsumeApiException, InvalidDataException, BusinessException
+from util.CustomException import NotFoundException, ConsumeApiException, InvalidDataException, BusinessException, \
+    NotMappedException
 
 
 class TestPurchaseService(unittest.TestCase):
@@ -36,12 +37,15 @@ class TestPurchaseService(unittest.TestCase):
         purchase = {"cpf": self.CONST_CPF, "code": "A11", "value": 100.50, "date": "2019-01-01T22:50:00"}
         purchase_15 = {"cpf": self.CONST_CPF_CON, "code": "A11", "value": 1000.50, "date": "2019-01-01T22:51:00"}
         purchase_20 = {"cpf": self.CONST_CPF_CON, "code": "A11", "value": 1500.50, "date": "2019-01-01T22:52:00"}
+        purchase_not_mapped = {"cpf": "123", "code": "A11", "value": 1500.50, "date": "2019-01-01T22:52:00"}
         invalid_purchase = {"cpf": self.CONST_CPF, "code": "A11", "value": 12.50}
         data = self.purchase_repository.add(purchase=purchase)
         data_15 = self.purchase_repository.add(purchase=purchase_15)
         data_20 = self.purchase_repository.add(purchase=purchase_20)
         with self.assertRaises(InvalidDataException):
             self.purchase_repository.add(purchase=invalid_purchase)
+        with self.assertRaises(NotMappedException):
+            self.purchase_repository.add(purchase=purchase_not_mapped)
         assert data["id"] > 0
         assert data["value_cb"] == 10
         assert data_15["value_cb"] == 15
@@ -55,10 +59,13 @@ class TestPurchaseService(unittest.TestCase):
         data = self.purchase_repository.update(purchase=purchase[0])
         not_found_purchase = {"cpf": self.CONST_CPF_CON, "code": "A11", "value": 20.50, "date": "2019-01-01T22:54:00",
                               "id": -2}
+        invalid_purchase = {"cpf": self.CONST_CPF, "code": "A11", "value": 12.50}
         with self.assertRaises(NotFoundException):
             self.purchase_repository.update(purchase=not_found_purchase)
         with self.assertRaises(BusinessException):
             self.purchase_repository.update(purchase=business_purchase[0])
+        with self.assertRaises(InvalidDataException):
+            self.purchase_repository.add(purchase=invalid_purchase)
         assert data["id"] > 0
 
     def test_03_find_by_cpf(self):
