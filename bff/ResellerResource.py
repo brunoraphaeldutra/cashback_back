@@ -24,6 +24,7 @@ class ResellerResource(Resource):
         try:
             current_user = get_jwt_identity()
             data = service.find_by_cpf(current_user)
+
             return get_response(data, 200)
         except Exception as err:
             response = get_error_response(err, 400)

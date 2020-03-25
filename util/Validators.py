@@ -10,6 +10,13 @@ class CreateResellerSchema(Schema):
     full_name = fields.String(required=True)
 
 
+class ViewResellerSchema(Schema):
+    id = fields.Integer(required=False)
+    cpf = fields.String(required=True)
+    email = fields.Email(required=True)
+    full_name = fields.String(required=True)
+
+
 class CreatePurchaseSchema(Schema):
     id = fields.Integer(required=False)
     code = fields.String(required=True)

@@ -7,11 +7,12 @@ from service.FactoryService import ResellerToObject
 from util.CustomException import InvalidDataException, DuplicateDataException, NotFoundException
 from util.CustomException import NotMappedException
 from util.StringUtil import StringUtil
-from util.Validators import CreateResellerSchema
+from util.Validators import CreateResellerSchema, ViewResellerSchema
 
 
 class ResellerService:
     create_schema = CreateResellerSchema()
+    view_schema = ViewResellerSchema()
     repository = ResellerRepository()
 
     def add(self, reseller):
@@ -31,7 +32,7 @@ class ResellerService:
         try:
             only_cpf = StringUtil.get_cpf(cpf)
             data = self.repository.find_by_cpf(cpf=only_cpf)
-            return self.create_schema.dump(data)
+            return self.view_schema.dump(data)
         except NotFoundException:
             raise NotFoundException(message='Not found')
         except Exception as err:
