@@ -36,8 +36,8 @@ def initial_reseller():
         only_cpf = StringUtil.get_cpf(CPF_ADM)
         try:
             service.add(
-                {"full_name": "Administrator", "cpf": only_cpf, "email": "{0}@email.com", "password": "{1}"
-                    .format(only_cpf, DEFAULT_PASSWORD)})
+                {"full_name": "Administrator", "cpf": only_cpf,
+                 "email": "{0}@email.com".format(only_cpf), "password": DEFAULT_PASSWORD})
         except Exception:
             pass
 
